@@ -1,38 +1,10 @@
-<div align="center">
+# KotaemonRAG
 
-# kotaemon
-
-An open-source clean & customizable RAG UI for chatting with your documents. Built with both end users and
-developers in mind.
+A fork of the open source [Kotaemon](https://github.com/Cinnamon/kotaemon) project. This offers a high level interface to interact with local and cloud based RAG solutions.
 
 ![Preview](https://raw.githubusercontent.com/Cinnamon/kotaemon/main/docs/images/preview-graph.png)
 
-<a href="https://trendshift.io/repositories/11607" target="_blank"><img src="https://trendshift.io/api/badge/repositories/11607" alt="Cinnamon%2Fkotaemon | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
-[Live Demo](https://huggingface.co/spaces/cin-model/kotaemon-demo) |
-[Online Install](https://cinnamon.github.io/kotaemon/online_install/) |
-[User Guide](https://cinnamon.github.io/kotaemon/) |
-[Developer Guide](https://cinnamon.github.io/kotaemon/development/) |
-[Feedback](https://github.com/Cinnamon/kotaemon/issues) |
-[Contact](mailto:kotaemon.support@cinnamon.is)
-
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/release/python-31013/)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-<a href="https://github.com/Cinnamon/kotaemon/pkgs/container/kotaemon" target="_blank">
-<img src="https://img.shields.io/badge/docker_pull-kotaemon:latest-brightgreen" alt="docker pull ghcr.io/cinnamon/kotaemon:latest"></a>
-![download](https://img.shields.io/github/downloads/Cinnamon/kotaemon/total.svg?label=downloads&color=blue)
-<a href='https://huggingface.co/spaces/cin-model/kotaemon-demo'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue'></a>
-<a href="https://hellogithub.com/en/repository/d3141471a0244d5798bc654982b263eb" target="_blank"><img src="https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=d3141471a0244d5798bc654982b263eb&claim_uid=RLiD9UZ1rEHNaMf&theme=small" alt="Featured｜HelloGitHub" /></a>
-
-</div>
-
-<!-- start-intro -->
-
-## Introduction
-
-This project serves as a functional RAG UI for both end users who want to do QA on their
-documents and developers who want to build their own RAG pipeline.
-<br>
 
 ## Installation
 
@@ -44,7 +16,9 @@ documents and developers who want to build their own RAG pipeline.
 2. [Docker](https://www.docker.com/): optional, if you [install with Docker](#with-docker-recommended)
 3. [Unstructured](https://docs.unstructured.io/open-source/installation/full-installation#full-installation) if you want to process files other than `.pdf`, `.html`, `.mhtml`, and `.xlsx` documents. Installation steps differ depending on your operating system. Please visit the link and follow the specific instructions provided there.
 
-### With Docker (recommended)
+### With Docker
+
+<details>
 
 1. We support both `lite` & `full` version of Docker images. With `full`, the extra packages of `unstructured` will be installed as well, it can support additional file types (`.doc`, `.docx`, ...) but the cost is larger docker image size. For most users, the `lite` image should work well in most cases.
 
@@ -84,19 +58,26 @@ documents and developers who want to build their own RAG pipeline.
 
 4. We use [GHCR](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) to store docker images, all images can be found [here.](https://github.com/Cinnamon/kotaemon/pkgs/container/kotaemon)
 
-### Without Docker
 
-1. Clone and install required packages on a fresh python environment.
+</details>
+
+### Without Docker (recommended for dev)
+
+<details>
+
+1. Before begining, install [Microsoft C++ 14.0+](https://visualstudio.microsoft.com/fr/visual-cpp-build-tools/). Install the default recommended dependencies of the **Desktop C++ Development** package.
+
+2. Clone and install required packages on a fresh python environment.
 
    ```shell
-   # optional (setup env)
-   conda create -n kotaemon python=3.10
-   conda activate kotaemon
-
    # clone this repo
    git clone https://github.com/Cinnamon/kotaemon
    cd kotaemon
 
+   # create a venv (this env is rather complex)
+   python -m venv .venv
+  
+   # install the libraries dependencies (ignore python version for python>=3.12)
    pip install -e "libs/kotaemon[all]" --ignore-requires-python
    pip install -e "libs/ktem" --ignore-requires-python
    ```
@@ -118,9 +99,12 @@ documents and developers who want to build their own RAG pipeline.
    - The app will be automatically launched in your browser.
    - Default username and password are both `admin`. You can set up additional users directly through the UI.
 
-   ![Chat tab](https://raw.githubusercontent.com/Cinnamon/kotaemon/main/docs/images/chat-tab.png)
-
 5. Check the `Resources` tab and `LLMs and Embeddings` and ensure that your `api_key` value is set correctly from your `.env` file. If it is not set, you can set it there.
+
+</details>
+
+
+## Further developments
 
 ### Setup Local Models (for local/private RAG)
 
