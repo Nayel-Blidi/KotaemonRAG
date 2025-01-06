@@ -34,53 +34,6 @@ This project serves as a functional RAG UI for both end users who want to do QA 
 documents and developers who want to build their own RAG pipeline.
 <br>
 
-```yml
-+----------------------------------------------------------------------------+
-| End users: Those who use apps built with `kotaemon`.                       |
-| (You use an app like the one in the demo above)                            |
-|     +----------------------------------------------------------------+     |
-|     | Developers: Those who built with `kotaemon`.                   |     |
-|     | (You have `import kotaemon` somewhere in your project)         |     |
-|     |     +----------------------------------------------------+     |     |
-|     |     | Contributors: Those who make `kotaemon` better.    |     |     |
-|     |     | (You make PR to this repo)                         |     |     |
-|     |     +----------------------------------------------------+     |     |
-|     +----------------------------------------------------------------+     |
-+----------------------------------------------------------------------------+
-```
-
-### For end users
-
-- **Clean & Minimalistic UI**: A user-friendly interface for RAG-based QA.
-- **Support for Various LLMs**: Compatible with LLM API providers (OpenAI, AzureOpenAI, Cohere, etc.) and local LLMs (via `ollama` and `llama-cpp-python`).
-- **Easy Installation**: Simple scripts to get you started quickly.
-
-### For developers
-
-- **Framework for RAG Pipelines**: Tools to build your own RAG-based document QA pipeline.
-- **Customizable UI**: See your RAG pipeline in action with the provided UI, built with <a href='https://github.com/gradio-app/gradio'>Gradio <img src='https://img.shields.io/github/stars/gradio-app/gradio'></a>.
-- **Gradio Theme**: If you use Gradio for development, check out our theme here: [kotaemon-gradio-theme](https://github.com/lone17/kotaemon-gradio-theme).
-
-## Key Features
-
-- **Host your own document QA (RAG) web-UI**: Support multi-user login, organize your files in private/public collections, collaborate and share your favorite chat with others.
-
-- **Organize your LLM & Embedding models**: Support both local LLMs & popular API providers (OpenAI, Azure, Ollama, Groq).
-
-- **Hybrid RAG pipeline**: Sane default RAG pipeline with hybrid (full-text & vector) retriever and re-ranking to ensure best retrieval quality.
-
-- **Multi-modal QA support**: Perform Question Answering on multiple documents with figures and tables support. Support multi-modal document parsing (selectable options on UI).
-
-- **Advanced citations with document preview**: By default the system will provide detailed citations to ensure the correctness of LLM answers. View your citations (incl. relevant score) directly in the _in-browser PDF viewer_ with highlights. Warning when retrieval pipeline return low relevant articles.
-
-- **Support complex reasoning methods**: Use question decomposition to answer your complex/multi-hop question. Support agent-based reasoning with `ReAct`, `ReWOO` and other agents.
-
-- **Configurable settings UI**: You can adjust most important aspects of retrieval & generation process on the UI (incl. prompts).
-
-- **Extensible**: Being built on Gradio, you are free to customize or add any UI elements as you like. Also, we aim to support multiple strategies for document indexing & retrieval. `GraphRAG` indexing pipeline is provided as an example.
-
-![Preview](https://raw.githubusercontent.com/Cinnamon/kotaemon/main/docs/images/preview.png)
-
 ## Installation
 
 > If you are not a developer and just want to use the app, please check out our easy-to-follow [User Guide](https://cinnamon.github.io/kotaemon/). Download the `.zip` file from the [latest release](https://github.com/Cinnamon/kotaemon/releases/latest) to get all the newest features and bug fixes.
@@ -144,8 +97,8 @@ documents and developers who want to build their own RAG pipeline.
    git clone https://github.com/Cinnamon/kotaemon
    cd kotaemon
 
-   pip install -e "libs/kotaemon[all]"
-   pip install -e "libs/ktem"
+   pip install -e "libs/kotaemon[all]" --ignore-requires-python
+   pip install -e "libs/ktem" --ignore-requires-python
    ```
 
 2. Create a `.env` file in the root of this project. Use `.env.example` as a template
@@ -168,51 +121,6 @@ documents and developers who want to build their own RAG pipeline.
    ![Chat tab](https://raw.githubusercontent.com/Cinnamon/kotaemon/main/docs/images/chat-tab.png)
 
 5. Check the `Resources` tab and `LLMs and Embeddings` and ensure that your `api_key` value is set correctly from your `.env` file. If it is not set, you can set it there.
-
-### Setup GraphRAG
-
-> [!NOTE]
-> Official MS GraphRAG indexing only works with OpenAI or Ollama API.
-> We recommend most users to use NanoGraphRAG implementation for straightforward integration with Kotaemon.
-
-<details>
-
-<summary>Setup Nano GRAPHRAG</summary>
-
-- Install nano-GraphRAG: `pip install nano-graphrag`
-- `nano-graphrag` install might introduce version conflicts, see [this issue](https://github.com/Cinnamon/kotaemon/issues/440)
-  - To quickly fix: `pip uninstall hnswlib chroma-hnswlib && pip install chroma-hnswlib`
-- Launch Kotaemon with `USE_NANO_GRAPHRAG=true` environment variable.
-- Set your default LLM & Embedding models in Resources setting and it will be recognized automatically from NanoGraphRAG.
-
-</details>
-
-<details>
-
-<summary>Setup LIGHTRAG</summary>
-
-- Install LightRAG: `pip install git+https://github.com/HKUDS/LightRAG.git`
-- `LightRAG` install might introduce version conflicts, see [this issue](https://github.com/Cinnamon/kotaemon/issues/440)
-  - To quickly fix: `pip uninstall hnswlib chroma-hnswlib && pip install chroma-hnswlib`
-- Launch Kotaemon with `USE_LIGHTRAG=true` environment variable.
-- Set your default LLM & Embedding models in Resources setting and it will be recognized automatically from LightRAG.
-
-</details>
-
-<details>
-
-<summary>Setup MS GRAPHRAG</summary>
-
-- **Non-Docker Installation**: If you are not using Docker, install GraphRAG with the following command:
-
-  ```shell
-  pip install "graphrag<=0.3.6" future
-  ```
-
-- **Setting Up API KEY**: To use the GraphRAG retriever feature, ensure you set the `GRAPHRAG_API_KEY` environment variable. You can do this directly in your environment or by adding it to a `.env` file.
-- **Using Local Models and Custom Settings**: If you want to use GraphRAG with local models (like `Ollama`) or customize the default LLM and other configurations, set the `USE_CUSTOMIZED_GRAPHRAG_SETTING` environment variable to true. Then, adjust your settings in the `settings.yaml.example` file.
-
-</details>
 
 ### Setup Local Models (for local/private RAG)
 
@@ -358,34 +266,3 @@ This file provides another way to configure your models and credentials.
 > (more instruction WIP).
 
 <!-- end-intro -->
-
-## Citation
-
-Please cite this project as
-
-```BibTeX
-@misc{kotaemon2024,
-    title = {Kotaemon - An open-source RAG-based tool for chatting with any content.},
-    author = {The Kotaemon Team},
-    year = {2024},
-    howpublished = {\url{https://github.com/Cinnamon/kotaemon}},
-}
-```
-
-## Star History
-
-<a href="https://star-history.com/#Cinnamon/kotaemon&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Cinnamon/kotaemon&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Cinnamon/kotaemon&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Cinnamon/kotaemon&type=Date" />
- </picture>
-</a>
-
-## Contribution
-
-Since our project is actively being developed, we greatly value your feedback and contributions. Please see our [Contributing Guide](https://github.com/Cinnamon/kotaemon/blob/main/CONTRIBUTING.md) to get started. Thank you to all our contributors!
-
-<a href="https://github.com/Cinnamon/kotaemon/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Cinnamon/kotaemon" />
-</a>
