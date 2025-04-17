@@ -10,6 +10,7 @@ from .langchain_based import (
 )
 from .llamacpp import LlamaCppChat
 from .openai import AzureChatOpenAI, ChatOpenAI
+from .customllm import CustomLLM
 
 __all__ = [
     "ChatOpenAI",
@@ -24,4 +25,5 @@ __all__ = [
     "LCAzureChatOpenAI",
     "LCChatMixin",
     "LlamaCppChat",
+    "CustomLLM"
 ]

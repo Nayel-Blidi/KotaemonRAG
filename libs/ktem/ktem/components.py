@@ -8,9 +8,6 @@ from typing import Optional
 from theflow.settings import settings
 from theflow.utils.modules import deserialize
 
-from kotaemon.base import BaseComponent
-from kotaemon.storages import BaseDocumentStore, BaseVectorStore
-
 logger = logging.getLogger(__name__)
 
 
@@ -19,7 +16,7 @@ filestorage_path.mkdir(parents=True, exist_ok=True)
 
 
 @cache
-def get_docstore(collection_name: str = "default") -> BaseDocumentStore:
+def get_docstore(collection_name: str = "default") -> None:
     from copy import deepcopy
 
     ds_conf = deepcopy(settings.KH_DOCSTORE)
@@ -28,7 +25,7 @@ def get_docstore(collection_name: str = "default") -> BaseDocumentStore:
 
 
 @cache
-def get_vectorstore(collection_name: str = "default") -> BaseVectorStore:
+def get_vectorstore(collection_name: str = "default") -> None:
     from copy import deepcopy
 
     vs_conf = deepcopy(settings.KH_VECTORSTORE)
@@ -43,7 +40,7 @@ class ModelPool:
         self._category = category
         self._conf = conf
 
-        self._models: dict[str, BaseComponent] = {}
+        self._models: dict[str, None] = {}
         self._accuracy: list[str] = []
         self._cost: list[str] = []
         self._default: list[str] = []
@@ -58,11 +55,11 @@ class ModelPool:
         )
         self._cost = list(sorted(conf, key=lambda x: conf[x].get("cost", float("inf"))))
 
-    def __getitem__(self, key: str) -> BaseComponent:
+    def __getitem__(self, key: str) -> None:
         """Get model by name"""
         return self._models[key]
 
-    def __setitem__(self, key: str, value: BaseComponent):
+    def __setitem__(self, key: str, value: None):
         """Set model by name"""
         self._models[key] = value
 
@@ -75,8 +72,8 @@ class ModelPool:
         return key in self._models
 
     def get(
-        self, key: str, default: Optional[BaseComponent] = None
-    ) -> Optional[BaseComponent]:
+        self, key: str, default: Optional[None] = None
+    ) -> Optional[None]:
         """Get model by name with default value"""
         return self._models.get(key, default)
 
@@ -124,18 +121,18 @@ class ModelPool:
 
         return self.get_random_name()
 
-    def get_random(self) -> BaseComponent:
+    def get_random(self) -> None:
         """Get random model"""
         return self._models[self.get_random_name()]
 
-    def get_default(self) -> BaseComponent:
+    def get_default(self) -> None:
         """Get default model
 
         In case there is no default model, choose random model from pool. In
         case there are multiple default models, choose random from them.
 
         Returns:
-            BaseComponent: model
+            None: model
         """
         return self._models[self.get_default_name()]
 
@@ -149,11 +146,11 @@ class ModelPool:
             raise ValueError("No models in pool")
         return self._accuracy[-1]
 
-    def get_highest_accuracy(self) -> BaseComponent:
+    def get_highest_accuracy(self) -> None:
         """Get model with highest accuracy
 
         Returns:
-            BaseComponent: model
+            None: model
         """
         if not self._conf:
             raise ValueError("No models in pool")
@@ -170,11 +167,11 @@ class ModelPool:
             raise ValueError("No models in pool")
         return self._cost[0]
 
-    def get_lowest_cost(self) -> BaseComponent:
+    def get_lowest_cost(self) -> None:
         """Get model with lowest cost
 
         Returns:
-            BaseComponent: model
+            None: model
         """
         if not self._conf:
             raise ValueError("No models in pool")

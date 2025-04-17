@@ -61,6 +61,7 @@ class LLMManager:
             LCCohereChat,
             LCGeminiChat,
             LlamaCppChat,
+            CustomLLM
         )
 
         self._vendors = [
@@ -70,6 +71,7 @@ class LLMManager:
             LCGeminiChat,
             LCCohereChat,
             LlamaCppChat,
+            CustomLLM
         ]
 
         for extra_vendor in getattr(flowsettings, "KH_LLM_EXTRA_VENDORS", []):

@@ -1,3 +1,9 @@
+import os, sys
+
+MAIN_PATH = os.path.dirname(os.path.dirname(__file__))
+sys.path.append(MAIN_PATH)
+os.chdir(MAIN_PATH)
+
 import gradio as gr
 from decouple import config
 from ktem.app import BaseApp

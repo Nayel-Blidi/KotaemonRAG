@@ -13,6 +13,7 @@ from .chats import (
     LCCohereChat,
     LCGeminiChat,
     LlamaCppChat,
+    CustomLLM
 )
 from .completions import LLM, AzureOpenAI, LlamaCpp, OpenAI
 from .cot import ManualSequentialChainOfThought, Thought
@@ -36,6 +37,7 @@ __all__ = [
     "LCAzureChatOpenAI",
     "LCChatOpenAI",
     "LlamaCppChat",
+    "CustomLLM",
     # completion-specific components
     "LLM",
     "OpenAI",

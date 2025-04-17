@@ -62,6 +62,7 @@ class SetupPage(BasePage):
                 ("Google API (*free registration*)", "google"),
                 ("OpenAI API (for GPT-based models)", "openai"),
                 ("Local LLM (for completely *private RAG*)", "ollama"),
+                ("Generative Engine (Capgemini *private RAG*)", "aws & azure")
             ],
             label="Select your model provider",
             value="cohere",
@@ -115,6 +116,18 @@ class SetupPage(BasePage):
                     "Download and install Ollama from "
                     "https://ollama.com/"
                 )
+            )
+
+        with gr.Column(visible=False) as self.custom_option:
+            gr.Markdown(
+                (
+                    "#### Setup Custom model\n\n"
+                    "Get you API key at "
+                    "https://generative.engine.capgemini.com/"
+                )
+            )
+            self.custom_api_key = gr.Textbox(
+                show_label=False, placeholder="Custom API Key"
             )
 
         self.setup_log = gr.HTML(
@@ -286,6 +299,28 @@ class SetupPage(BasePage):
                     "base_url": KH_OLLAMA_URL,
                     "model": "nomic-embed-text",
                     "api_key": "ollama",
+                },
+                default=True,
+            )
+
+        elif radio_model_value == "custom":
+            llms.update(
+                name="custom",
+                spec={
+                    "__type__": "kotaemon.llms.ChatGenerativeEngine",
+                    "base_url": "wss://ws.generative.engine.capgemini.com/",
+                    "model": "openai.gpt-4o",
+                    "api_key": "custom",
+                },
+                default=True,
+            )
+            embeddings.update(
+                name="ollama",
+                spec={
+                    "__type__": "kotaemon.embeddings.OpenAIEmbeddings",
+                    "base_url": "wss://ws.generative.engine.capgemini.com/",
+                    "model": "",
+                    "api_key": "custom",
                 },
                 default=True,
             )
